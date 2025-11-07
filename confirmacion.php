@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Debe ingresar correo electrónico o teléfono.";
     } else {
         try {
-            // Validar folio + contacto
             $stmt = $pdo->prepare("
                 SELECT * FROM reservas 
                 WHERE folio = ? AND (correo_contacto = ? OR telefono_contacto = ?)
@@ -28,24 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($reserva) {
-                // Obtener vuelo ida
-                $stmt = $pdo->prepare("
-                    SELECT * FROM vuelos WHERE id_vuelo = ?
-                ");
+                $stmt = $pdo->prepare("SELECT * FROM vuelos WHERE id_vuelo = ?");
                 $stmt->execute([$reserva['id_vuelo_ida']]);
                 $vuelo_ida = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Obtener vuelo regreso si existe
                 $vuelo_regreso = null;
                 if (!empty($reserva['id_vuelo_regreso'])) {
-                    $stmt = $pdo->prepare("
-                        SELECT * FROM vuelos WHERE id_vuelo = ?
-                    ");
+                    $stmt = $pdo->prepare("SELECT * FROM vuelos WHERE id_vuelo = ?");
                     $stmt->execute([$reserva['id_vuelo_regreso']]);
                     $vuelo_regreso = $stmt->fetch(PDO::FETCH_ASSOC);
                 }
 
-                // Obtener pasajeros
                 $stmt = $pdo->prepare("
                     SELECT p.nombre, p.apellidos, p.asiento_seleccionado, cp.categoria
                     FROM pasajeros p
@@ -72,29 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Confirmar Información - Cherry Airlines</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        .ticket {
-            border: 2px solid #333;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            margin: 20px 0;
-            page-break-inside: avoid;
-        }
-        @media print {
-            body * { visibility: hidden; }
-            .ticket, .ticket * { visibility: visible; }
-            .ticket { position: absolute; top: 0; left: 0; width: 100%; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-light">
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-cherry mb-5">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <i class="bi bi-airplane-fill me-2"></i> Cherry Airlines
+            <div class="brand-logo">
+                <i class="bi bi-airplane-fill"></i>
+            </div>
+            Cherry Airlines
         </a>
     </div>
 </nav>
@@ -103,10 +84,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-lg-8">
 
-            <!-- FORMULARIO -->
+            <!-- FORMULARIO DE CONFIRMACIÓN -->
             <?php if (!$reserva): ?>
             <div class="booking-card shadow mb-4">
-                <h4 class="mb-3 text-center"><i class="bi bi-search"></i> Confirmar mi Reserva</h4>
+                <h4 class="mb-3 text-center">
+                    <i class="bi bi-search"></i> Confirmar mi Reserva
+                </h4>
                 <form method="POST">
                     <p class="text-muted mb-3 text-center">
                         Ingrese <strong>correo electrónico</strong> o <strong>teléfono</strong> para confirmar el folio <strong><?= esc($folio) ?></strong>.
@@ -132,57 +115,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <?php endif; ?>
 
-            <!-- BOLETOS -->
+            <!-- BOLETOS CONFIRMADOS -->
             <?php if ($reserva): ?>
                 <div class="alert alert-success">
                     <h5>Reserva confirmada</h5>
                     <p>Folio: <strong><?= esc($reserva['folio']) ?></strong></p>
                 </div>
 
-                <?php foreach($pasajeros as $pasajero): ?>
-                <div class="ticket">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Pasajero:</strong><br>
-                            <?= esc($pasajero['nombre'] . ' ' . $pasajero['apellidos']) ?>
+                <div class="printable">
+                    <?php foreach($pasajeros as $pasajero): ?>
+                    <div class="ticket">
+                        <div class="ticket-header">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3 class="mb-0">Cherry Airlines</h3>
+                                    <small>Aerolínea de Confianza</small>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <h4 class="mb-0">BOLETO ELECTRÓNICO</h4>
+                                    <small>Folio: <?= esc($reserva['folio']) ?></small>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <strong>Categoría:</strong><br>
-                            <?= esc($pasajero['categoria']) ?>
+                        <div class="ticket-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Pasajero:</strong><br>
+                                    <?= esc($pasajero['nombre'] . ' ' . $pasajero['apellidos']) ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Categoría:</strong><br>
+                                    <?= esc($pasajero['categoria']) ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Vuelo:</strong><br>
+                                    <?= esc($vuelo_ida['origen']) ?> → <?= esc($vuelo_ida['destino']) ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Asiento:</strong><br>
+                                    <?= esc($pasajero['asiento_seleccionado']) ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Salida:</strong><br>
+                                    <?= date('d/m/Y H:i', strtotime($vuelo_ida['salida'])) ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Llegada:</strong><br>
+                                    <?= date('d/m/Y H:i', strtotime($vuelo_ida['llegada'])) ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>Precio:</strong> $<?= number_format($vuelo_ida['precio'], 2) ?> MXN
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small>¡Gracias por volar con Cherry Airlines!</small>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Vuelo:</strong><br>
-                            <?= esc($vuelo_ida['origen']) ?> → <?= esc($vuelo_ida['destino']) ?>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Asiento:</strong><br>
-                            <?= esc($pasajero['asiento_seleccionado']) ?>
-                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- INFORMACIÓN DE CONTACTO -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0">Información de Contacto</h6>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Salida:</strong><br>
-                            <?= date('d/m/Y H:i', strtotime($vuelo_ida['salida'])) ?>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Llegada:</strong><br>
-                            <?= date('d/m/Y H:i', strtotime($vuelo_ida['llegada'])) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <strong>Precio:</strong> $<?= number_format($vuelo_ida['precio'], 2) ?> MXN
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <small>¡Gracias por volar con Cherry Airlines!</small>
+                    <div class="card-body">
+                        <p><strong>Contacto:</strong> <?= esc($reserva['nombre_contacto']) ?></p>
+                        <p><strong>Correo:</strong> <?= esc($reserva['correo_contacto']) ?></p>
+                        <p><strong>Teléfono:</strong> <?= esc($reserva['telefono_contacto']) ?></p>
+                        <p><strong>Fecha de reserva:</strong> <?= date('d/m/Y H:i', strtotime($reserva['fecha_reserva'])) ?></p>
                     </div>
                 </div>
-                <?php endforeach; ?>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <!-- BOTONES -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end no-print">
                     <button onclick="window.print()" class="btn btn-primary">📄 Imprimir Boletos</button>
                     <a href="index.php" class="btn btn-secondary">🏠 Volver al Inicio</a>
                 </div>
@@ -191,9 +204,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
+<!-- FOOTER -->
 <footer class="footer-cherry mt-5 text-center">
     <p>&copy; <?= date("Y") ?> Cherry Airlines — Elegancia en el aire ✈️</p>
 </footer>
+
+<!-- SCRIPT DE IMPRESIÓN -->
+<script>
+    window.onbeforeprint = function() {
+        window.scrollTo(0, 0);
+    };
+</script>
 
 </body>
 </html>
