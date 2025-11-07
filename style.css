@@ -417,3 +417,35 @@ h1, h2, h3, h4, h5, h6 {
 .shadow {
     box-shadow: 0 4px 15px rgba(92, 76, 81, 0.15) !important;
 } 
+
+/*asientos.php*/
+.seat.occupied { background-color: #6c757d; color: white; cursor: not-allowed; }
+.seat.available { background-color: #28a745; color: white; cursor: pointer; }
+.seat.selected { background-color: #007bff; color: white; }
+.seat:hover:not(.occupied) { opacity: 0.8; }
+
+/*confirmacion.php*/
+.ticket {
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    margin: 20px 0;
+}
+.ticket-header {
+    border-bottom: 2px dashed white;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.ticket-body {
+    padding: 15px 0;
+}
+.printable { display: none; }
+@media print {
+    .no-print { display: none; }
+    .printable { display: block; }
+    .ticket { border: 3px solid #000; }
+}
+
+
