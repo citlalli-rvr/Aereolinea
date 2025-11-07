@@ -95,72 +95,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_submit'])) {
 <!-- Hero con formulario de búsqueda -->
 <section class="hero">
   <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold">Encuentra las mejores tarifas a tu destino</h1>
-        <p class="lead">Busca, compara y reserva. Cancelación flexible y opciones de equipaje.</p>
+    <div class="row align-items-center min-vh-70">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="hero-content">
+          <h1 class="display-5 fw-bold">Encuentra las mejores tarifas a tu destino</h1>
+          <p class="lead mb-4">Busca, compara y reserva. Cancelación flexible y opciones de equipaje.</p>
+          
+          <!-- Imagen dentro del contenido del hero -->
+          <div class="hero-image d-none d-lg-block">
+          </div>
+        </div>
       </div>
 
       <div class="col-lg-6">
-        <div class="row g-4">
+        <div class="forms-container">
           <!-- Sección de búsqueda por folio -->
-          <div class="col-12">
-            <div class="booking-card">
-              <h6 class="mb-3">Buscar reservación por folio</h6>
-              <form method="post" novalidate>
-                <div class="row g-2">
-                  <div class="col-8">
-                    <input name="folio" class="form-control" placeholder="Ingresa tu folio" required>
-                  </div>
-                  <div class="col-4">
-                    <button name="folio_submit" class="btn btn-secondary w-100">Buscar</button>
-                  </div>
+          <div class="booking-card folio-card mb-4">
+            <h6 class="mb-3">Buscar reservación por folio</h6>
+            <form method="post" novalidate>
+              <div class="row g-2 align-items-end">
+                <div class="col-8">
+                  <input name="folio" class="form-control" placeholder="Ingresa tu folio" required>
                 </div>
-              </form>
-            </div>
+                <div class="col-4">
+                  <button name="folio_submit" class="btn btn-secondary w-100">Buscar</button>
+                </div>
+              </div>
+            </form>
           </div>
 
           <!-- Formulario principal de búsqueda -->
-          <div class="col-12">
-            <div class="booking-card">
-              <form method="post" novalidate>
-                <div class="row g-2">
-                  <div class="col-12 col-md-6">
-                    <label class="form-label">Origen</label>
-                    <input name="from" class="form-control" placeholder="Ej: Ciudad de México" required value="<?= $_POST['from'] ?? '' ?>">
-                    <small class="text-muted">Punto de origen</small>
-                  </div>
-                  <div class="col-12 col-md-6">
-                    <label class="form-label">Destino</label>
-                    <input name="to" class="form-control" placeholder="Ej: Monterrey" required value="<?= $_POST['to'] ?? '' ?>">
-                    <small class="text-muted">Punto de destino</small>
-                  </div>
-
-                  <div class="col-6 col-md-6">
-                    <label class="form-label">Salida</label>
-                    <input name="dep_date" type="date" class="form-control" required 
-                           min="<?= date('Y-m-d') ?>" value="<?= $_POST['dep_date'] ?? '' ?>">
-                    <small class="text-muted">Fecha de salida</small>
-                  </div>
-                  <div class="col-6 col-md-6">
-                    <label class="form-label">Regreso (opcional)</label>
-                    <input name="ret_date" type="date" class="form-control" 
-                           min="<?= date('Y-m-d') ?>" value="<?= $_POST['ret_date'] ?? '' ?>">
-                    <small class="text-muted">Fecha de regreso (opcional)</small>
-                  </div>
-
-                  <div class="col-12 d-flex align-items-end">
-                    <button name="search_submit" class="btn btn-primary w-100">Buscar vuelos</button>
-                  </div>
+          <div class="booking-card search-card">
+            <form method="post" novalidate>
+              <div class="row g-3">
+                <h6 class="mb-3">Reserva tu proxima aventura!</h6>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Origen</label>
+                  <input name="from" class="form-control" placeholder="Ej: Ciudad de México" required value="<?= $_POST['from'] ?? '' ?>">
+                  <small class="text-muted">Punto de origen</small>
                 </div>
-              </form>
-
-              <?php if (!empty($errors)): ?>
-                <div class="mt-3 alert alert-danger">
-                  <?php foreach($errors as $e) echo "<div>$e</div>"; ?>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Destino</label>
+                  <input name="to" class="form-control" placeholder="Ej: Monterrey" required value="<?= $_POST['to'] ?? '' ?>">
+                  <small class="text-muted">Punto de destino</small>
                 </div>
-              <?php endif; ?>
-            </div>
+
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Salida</label>
+                  <input name="dep_date" type="date" class="form-control" required 
+                         min="<?= date('Y-m-d') ?>" value="<?= $_POST['dep_date'] ?? '' ?>">
+                  <small class="text-muted">Fecha de salida</small>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Regreso (opcional)</label>
+                  <input name="ret_date" type="date" class="form-control" 
+                         min="<?= date('Y-m-d') ?>" value="<?= $_POST['ret_date'] ?? '' ?>">
+                  <small class="text-muted">Fecha de regreso (opcional)</small>
+                </div>
+
+                <div class="col-12">
+                  <button name="search_submit" class="btn btn-primary w-100 py-2">Buscar vuelos</button>
+                </div>
+              </div>
+            </form>
+
+            <?php if (!empty($errors)): ?>
+              <div class="mt-3 alert alert-danger">
+                <?php foreach($errors as $e) echo "<div>$e</div>"; ?>
+              </div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
