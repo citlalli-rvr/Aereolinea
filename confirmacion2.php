@@ -67,30 +67,6 @@ try {
     <meta charset="UTF-8">
     <title>Confirmación de Reserva - Cherry Airlines</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .ticket {
-            border: 2px solid #333;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        .ticket-header {
-            border-bottom: 2px dashed white;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-        .ticket-body {
-            padding: 15px 0;
-        }
-        .printable { display: none; }
-        @media print {
-            .no-print { display: none; }
-            .printable { display: block; }
-            .ticket { border: 3px solid #000; }
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-4">
@@ -204,4 +180,5 @@ try {
         };
     </script>
 </body>
+
 </html>
