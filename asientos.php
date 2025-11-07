@@ -177,12 +177,6 @@ try {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Selección de asientos — Reserva</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .seat.occupied { background-color: #6c757d; color: white; cursor: not-allowed; }
-    .seat.available { background-color: #28a745; color: white; cursor: pointer; }
-    .seat.selected { background-color: #007bff; color: white; }
-    .seat:hover:not(.occupied) { opacity: 0.8; }
-  </style>
 </head>
 <body>
   <div class="container mt-4">
@@ -313,4 +307,5 @@ try {
     });
   </script>
 </body>
+
 </html>
