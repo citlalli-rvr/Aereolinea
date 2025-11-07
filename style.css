@@ -52,8 +52,11 @@ body {
     background: linear-gradient(135deg, rgba(92, 76, 81, 0.85), rgba(141, 191, 178, 0.8)), 
                 url('https://picsum.photos/1400/600?grayscale&blur=2') center/cover no-repeat;
     color: var(--vintage-cream);
-    padding: 80px 0;
+    padding: 60px 0;
     position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
 }
 
 .hero::before {
@@ -67,83 +70,122 @@ body {
     pointer-events: none;
 }
 
-/* Tarjetas de reserva */
-.hero .row.g-4 {
-    margin-top: 0;
-    margin-bottom: 2rem;
+.min-vh-70 {
+    min-height: 70vh;
 }
 
-.hero .col-lg-6 {
-    margin-bottom: 2rem;
+.hero-content {
+    padding-right: 2rem;
 }
 
-.hero .booking-card {
-    margin-bottom: 0;
+.hero-image {
+    margin-top: 2rem;
 }
 
-/* Asegurar que las tarjetas no se superpongan */
-@media (min-width: 992px) {
-    .hero .col-lg-6 {
-        padding: 0 20px;
-    }
-    
-    .hero .row.g-4 > .col-12 {
-        margin-bottom: 1.5rem;
-    }
-    
-    .hero .row.g-4 > .col-12:last-child {
-        margin-bottom: 0;
-    }
+.hero-image img {
+    border: 3px solid var(--vintage-teal);
+    box-shadow: 0 8px 25px rgba(92, 76, 81, 0.3);
 }
 
-/* Ajustes responsivos adicionales */
-@media (max-width: 991.98px) {
-    .hero {
-        padding: 40px 0;
-    }
-    
-    .hero .col-lg-6:first-child {
-        margin-bottom: 30px;
-        text-align: center;
-    }
+.forms-container {
+    position: relative;
+    z-index: 2;
 }
 
-/* Mejorar el espaciado interno de las tarjetas */
+/* Tarjetas de formulario CORREGIDAS */
 .booking-card {
-    background: rgba(242, 235, 191, 0.95); 
-    border-radius: 12px; 
-    padding: 25px; 
-    box-shadow: 0 8px 32px rgba(92, 76, 81, 0.15);
-    border: 1px solid rgba(141, 191, 178, 0.3);
-    backdrop-filter: blur(10px);
-    margin-bottom: 2 rem; /* Espacio consistente entre tarjetas */
+    background: rgba(242, 235, 191, 0.98); 
+    border-radius: 16px; 
+    padding: 2rem; 
+    box-shadow: 0 12px 40px rgba(92, 76, 81, 0.2);
+    border: 2px solid rgba(141, 191, 178, 0.4);
+    backdrop-filter: blur(12px);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 .booking-card:last-child {
-    margin-bottom: 0; /* Eliminar margen inferior de la última tarjeta */
+    margin-bottom: 0;
 }
 
-.booking-card .form-label {
-    color: var(--vintage-dark);
-    font-weight: 600;
+.folio-card {
+    background: rgba(242, 235, 191, 0.98);
+    border-color: var(--vintage-teal);
 }
 
-.booking-card .form-control,
-.booking-card .form-select {
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid var(--vintage-teal);
-    border-radius: 8px;
-    color: var(--vintage-dark);
-    transition: all 0.3s ease;
+.search-card {
+    background: rgba(242, 235, 191, 0.98);
 }
 
-.booking-card .form-control:focus,
-.booking-card .form-select:focus {
-    border-color: var(--vintage-orange);
-    box-shadow: 0 0 0 0.2rem rgba(243, 181, 98, 0.25);
-    background: white;
+/* Asegurar que no haya superposición en diferentes breakpoints */
+@media (min-width: 992px) {
+    .hero .container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    .forms-container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .booking-card {
+        margin-left: 0;
+        margin-right: 0;
+        transform: none !important;
+    }
 }
 
+@media (max-width: 991.98px) {
+    .hero {
+        padding: 40px 0;
+        min-height: auto;
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-image {
+        display: none;
+    }
+    
+    .forms-container {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* Mejoras de espaciado para móviles */
+@media (max-width: 575.98px) {
+    .booking-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero {
+        padding: 30px 0;
+    }
+}
+
+/* Eliminar cualquier estilo problemático previo */
+.booking-card {
+    max-width: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Asegurar que los formularios sean responsivos */
+.booking-card .row.g-3 {
+    margin: 0 -0.5rem;
+}
+
+.booking-card .row.g-3 > [class*="col-"] {
+    padding: 0 0.5rem;
+}
 
 /* Botones principales */
 .btn-primary {
@@ -359,6 +401,12 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, var(--vintage-dark), #4a3d41);
     color: var(--vintage-cream);
     border-bottom: 2px solid var(--vintage-teal);
+}
+
+.card-header h5 {
+    color: var(--vintage-light);
+    margin: 0;
+    font-weight: 600;
 }
 
 /* Efectos sutiles de profundidad */
