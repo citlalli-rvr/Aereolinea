@@ -419,7 +419,15 @@ h1, h2, h3, h4, h5, h6 {
 } 
 
 /*asientos.php*/
-/* Contenedor principal del avión */
+.plane-container{
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
 .plane-stage {
     position: relative;
     width: 100%;
@@ -428,24 +436,6 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 500px;
 }
 
-/* SVG del avión como fondo*/
-.plane-graphic {
-    position: absolute;
-    top: 0%;
-    left: -50%;
-    transform: translate (0,-50%);
-    width: 80%;
-    height: auto;
-    max-width: 400px;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.plane-graphic svg {
-    width: 330%;   /* ← aquí lo haces más grande */
-    height: 100%;  /* mantener proporciones */
-    transform: translate(-10%, -10%); /* opcional para centrarlo si se sale */
-}
 
 /* Layout que contiene los asientos*/
 .layout {
@@ -581,27 +571,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Efectos de accesibilidad */
-.seat:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-}
-
-/* Animación para selección */
-@keyframes selectSeat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1.1); }
-}
-
-.seat.selected {
-    animation: selectSeat 0.3s ease;
-}
-
-/* Asegurar que los asientos sean clickeables sobre el SVG */
-.seat {
-    pointer-events: auto;
-}
 /*confirmacion.php*/
 .ticket {
     border: 2px solid #333;
