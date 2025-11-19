@@ -419,11 +419,189 @@ h1, h2, h3, h4, h5, h6 {
 } 
 
 /*asientos.php*/
-.seat.occupied { background-color: #6c757d; color: white; cursor: not-allowed; }
-.seat.available { background-color: #28a745; color: white; cursor: pointer; }
-.seat.selected { background-color: #007bff; color: white; }
-.seat:hover:not(.occupied) { opacity: 0.8; }
+/* Contenedor principal del avión */
+.plane-stage {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 500px;
+}
 
+/* SVG del avión como fondo*/
+.plane-graphic {
+    position: absolute;
+    top: 0%;
+    left: -50%;
+    transform: translate (0,-50%);
+    width: 80%;
+    height: auto;
+    max-width: 400px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.plane-graphic svg {
+    width: 330%;   /* ← aquí lo haces más grande */
+    height: 100%;  /* mantener proporciones */
+    transform: translate(-10%, -10%); /* opcional para centrarlo si se sale */
+}
+
+/* Layout que contiene los asientos*/
+.layout {
+    position: relative;
+    z-index: 2;
+    padding: 60px 30px;
+    display: flex;
+    gap: 30px;
+}
+
+/* Columna de asientos */
+.seat-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* Fila individual de asientos */
+.single-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+/* Número de fila */
+.row-number {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+/* Contenedor de asientos por fila */
+.seats {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Estilos base del asiento */
+.seat {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 3;
+}
+
+/* Asiento disponible - Círculo verde con centro blanco */
+.seat.available {
+    background: radial-gradient(circle, #ffffff 30%, #28a745 30%);
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.seat.available:hover {
+    background: radial-gradient(circle, #ffffff 30%, #1e7e34 30%);
+    border-color: #1e7e34;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Asiento seleccionado */
+.seat.selected {
+    background: radial-gradient(circle, #ffffff 30%, #007bff 30%);
+    border-color: #007bff;
+    color: #007bff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Asiento ocupado - Círculo gris con centro blanco */
+.seat.occupied {
+    background: radial-gradient(circle, #ffffff 30%, #6c757d 30%);
+    border-color: #6c757d;
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Espacio para pasillo */
+.aisle {
+    width: 20px;
+    height: 28px;
+}
+
+/* Panel derecho */
+.right-panel {
+    position: relative;
+    z-index: 3;
+    min-width: 300px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+        padding: 40px 15px;
+    }
+    
+    .seat-column {
+        margin-bottom: 30px;
+    }
+    
+    .seat {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+    
+    .single-row[data-row] {
+        margin-left: 0 !important;
+    }
+    
+    .right-panel {
+        min-width: auto;
+    }
+}
+
+/* Efectos de accesibilidad */
+.seat:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Animación para selección */
+@keyframes selectSeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
+}
+
+.seat.selected {
+    animation: selectSeat 0.3s ease;
+}
+
+/* Asegurar que los asientos sean clickeables sobre el SVG */
+.seat {
+    pointer-events: auto;
+}
 /*confirmacion.php*/
 .ticket {
     border: 2px solid #333;
