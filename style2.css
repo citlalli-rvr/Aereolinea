@@ -1,0 +1,621 @@
+/* styles.css - Cherry Airlines - Tema Vintage Elegante */
+
+/* Estilos index.php */
+:root {
+    --vintage-dark: #5c4c51;
+    --vintage-teal: #8dbfb2;
+    --vintage-cream: #f2ebbf;
+    --vintage-orange: #f3b562;
+    --vintage-coral: #f06060;
+    --vintage-dark-text: #3a3235;
+    --vintage-light: #f8f5e6;
+}
+
+body { 
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background-color: var(--vintage-light);
+    color: var(--vintage-dark-text);
+    line-height: 1.6;
+}
+
+/* Navbar elegante */
+.navbar-cherry { 
+    background: linear-gradient(135deg, var(--vintage-dark), #4a3d41) !important;
+    box-shadow: 0 2px 15px rgba(92, 76, 81, 0.3);
+    border-bottom: 3px solid var(--vintage-teal);
+}
+
+.navbar-cherry .nav-link, 
+.navbar-cherry .navbar-brand { 
+    color: var(--vintage-cream) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.navbar-cherry .nav-link:hover {
+    color: var(--vintage-orange) !important;
+    transform: translateY(-1px);
+}
+
+.brand-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(242, 235, 191, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    border: 2px solid var(--vintage-teal);
+}
+
+/* Hero section con fondo vintage */
+.hero {
+    background: linear-gradient(135deg, rgba(92, 76, 81, 0.85), rgba(141, 191, 178, 0.8)), 
+                url('https://picsum.photos/1400/600?grayscale&blur=2') center/cover no-repeat;
+    color: var(--vintage-cream);
+    padding: 60px 0;
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+}
+
+.min-vh-70 {
+    min-height: 70vh;
+}
+
+.hero-content {
+    padding-right: 2rem;
+}
+
+.hero-image {
+    margin-top: 2rem;
+}
+
+.hero-image img {
+    border: 3px solid var(--vintage-teal);
+    box-shadow: 0 8px 25px rgba(92, 76, 81, 0.3);
+}
+
+.forms-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Tarjetas de formulario CORREGIDAS */
+.booking-card {
+    background: rgba(242, 235, 191, 0.98); 
+    border-radius: 16px; 
+    padding: 2rem; 
+    box-shadow: 0 12px 40px rgba(92, 76, 81, 0.2);
+    border: 2px solid rgba(141, 191, 178, 0.4);
+    backdrop-filter: blur(12px);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.booking-card:last-child {
+    margin-bottom: 0;
+}
+
+.folio-card {
+    background: rgba(242, 235, 191, 0.98);
+    border-color: var(--vintage-teal);
+}
+
+.search-card {
+    background: rgba(242, 235, 191, 0.98);
+}
+
+/* Asegurar que no haya superposición en diferentes breakpoints */
+@media (min-width: 992px) {
+    .hero .container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    .forms-container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .booking-card {
+        margin-left: 0;
+        margin-right: 0;
+        transform: none !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .hero {
+        padding: 40px 0;
+        min-height: auto;
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-image {
+        display: none;
+    }
+    
+    .forms-container {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* Mejoras de espaciado para móviles */
+@media (max-width: 575.98px) {
+    .booking-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero {
+        padding: 30px 0;
+    }
+}
+
+/* Eliminar cualquier estilo problemático previo */
+.booking-card {
+    max-width: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Asegurar que los formularios sean responsivos */
+.booking-card .row.g-3 {
+    margin: 0 -0.5rem;
+}
+
+.booking-card .row.g-3 > [class*="col-"] {
+    padding: 0 0.5rem;
+}
+
+
+/* Botones principales */
+.btn-primary {
+    background: linear-gradient(135deg, var(--vintage-orange), #e0a04c);
+    border: none;
+    color: var(--vintage-dark);
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(243, 181, 98, 0.3);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #e0a04c, var(--vintage-orange));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 181, 98, 0.4);
+    color: var(--vintage-dark);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--vintage-teal), #7ba89d);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #7ba89d, var(--vintage-teal));
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* Footer vintage */
+.footer-cherry { 
+    background: linear-gradient(135deg, var(--vintage-dark), #4a3d41);
+    color: var(--vintage-cream); 
+    padding: 40px 0 20px;
+    border-top: 3px solid var(--vintage-teal);
+}
+
+.footer-cherry a {
+    color: var(--vintage-orange);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-cherry a:hover {
+    color: var(--vintage-cream);
+}
+
+/* Badges y elementos destacados */
+.offer-badge { 
+    background: linear-gradient(135deg, var(--vintage-coral), #e05555);
+    color: white; 
+    padding: 6px 12px; 
+    border-radius: 20px; 
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+/* Tarjetas de promoción */
+.promo-card {
+    background: var(--vintage-cream);
+    border: 1px solid rgba(141, 191, 178, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.promo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(92, 76, 81, 0.15);
+}
+
+.promo-card img { 
+    border-top-left-radius: 12px; 
+    border-top-right-radius: 12px; 
+    height: 180px; 
+    object-fit: cover;
+    filter: sepia(0.2);
+}
+
+.promo-card .card-body {
+    background: var(--vintage-cream);
+}
+
+.promo-card .card-title {
+    color: var(--vintage-dark);
+    font-weight: 600;
+}
+
+/* Carousel */
+.carousel-item img {
+    filter: sepia(0.3) contrast(1.1);
+    border-radius: 8px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background: rgba(92, 76, 81, 0.7);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 15px;
+}
+
+/* Secciones de características */
+.border.rounded {
+    border: 2px solid var(--vintage-teal) !important;
+    background: var(--vintage-cream);
+    transition: all 0.3s ease;
+}
+
+.border.rounded:hover {
+    border-color: var(--vintage-orange) !important;
+    transform: translateY(-3px);
+}
+
+/* Botones outline */
+.btn-outline-cherry {
+    color: var(--vintage-teal);
+    border: 2px solid var(--vintage-teal);
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-cherry:hover {
+    background: var(--vintage-teal);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline-light {
+    border: 2px solid var(--vintage-cream);
+    color: var(--vintage-cream);
+    border-radius: 8px;
+}
+
+.btn-outline-light:hover {
+    background: var(--vintage-cream);
+    color: var(--vintage-dark);
+}
+
+/* Alertas */
+.alert-danger {
+    background: rgba(240, 96, 96, 0.1);
+    border: 1px solid var(--vintage-coral);
+    color: var(--vintage-dark);
+    border-radius: 8px;
+}
+
+.alert-warning {
+    background: rgba(243, 181, 98, 0.1);
+    border: 1px solid var(--vintage-orange);
+    color: var(--vintage-dark);
+    border-radius: 8px;
+}
+
+.alert-info {
+    background: rgba(141, 191, 178, 0.1);
+    border: 1px solid var(--vintage-teal);
+    color: var(--vintage-dark);
+    border-radius: 8px;
+}
+
+/* estilos registro.php */
+/* Formularios de pasajeros */
+.pasajero-form {
+    background: linear-gradient(135deg, var(--vintage-light), var(--vintage-cream));
+    border-left: 4px solid var(--vintage-teal) !important;
+    border-radius: 8px;
+}
+
+.bg-cherry {
+    background: linear-gradient(135deg, var(--vintage-dark), var(--vintage-teal)) !important;
+}
+
+.text-cherry {
+    color: var(--vintage-teal) !important;
+}
+
+/* Responsive */
+@media (min-width: 992px) {
+    .booking-card { 
+        max-width: 920px; 
+        margin: -80px auto 0; 
+    }
+}
+
+/* Efectos de texto vintage */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--vintage-dark);
+    font-weight: 600;
+}
+
+.text-muted {
+    color: #8a7f83 !important;
+}
+
+/* Mejoras de legibilidad */
+.card {
+    background: var(--vintage-cream);
+    border: 1px solid rgba(141, 191, 178, 0.3);
+    border-radius: 12px;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--vintage-dark), #4a3d41);
+    color: var(--vintage-cream);
+    border-bottom: 2px solid var(--vintage-teal);
+}
+
+.card-header h5 {
+    color: var(--vintage-light);
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Efectos sutiles de profundidad */
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(92, 76, 81, 0.1) !important;
+}
+
+.shadow {
+    box-shadow: 0 4px 15px rgba(92, 76, 81, 0.15) !important;
+} 
+
+/* Agregar al styles.css existente para el admin */
+
+.bg-vintage-dark {
+    background: linear-gradient(135deg, var(--vintage-dark), #4a3d41) !important;
+}
+
+.bg-vintage-teal {
+    background: linear-gradient(135deg, var(--vintage-teal), #7ba89d) !important;
+}
+
+.table-info {
+    background-color: rgba(141, 191, 178, 0.15) !important;
+}
+
+/* Contenedor principal del avión */
+.plane-stage {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: 500px;
+}
+
+/* SVG del avión como fondo*/
+.plane-graphic {
+    position: absolute;
+    top: 0%;
+    left: -50%;
+    transform: translate (0,-50%);
+    width: 80%;
+    height: auto;
+    max-width: 400px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.plane-graphic svg {
+    width: 330%;   /* ← aquí lo haces más grande */
+    height: 100%;  /* mantener proporciones */
+    transform: translate(-10%, -10%); /* opcional para centrarlo si se sale */
+}
+
+/* Layout que contiene los asientos*/
+.layout {
+    position: relative;
+    z-index: 2;
+    padding: 60px 30px;
+    display: flex;
+    gap: 30px;
+}
+
+/* Columna de asientos */
+.seat-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+/* Fila individual de asientos */
+.single-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+/* Número de fila */
+.row-number {
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+/* Contenedor de asientos por fila */
+.seats {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Estilos base del asiento */
+.seat {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 3;
+}
+
+/* Asiento disponible - Círculo verde con centro blanco */
+.seat.available {
+    background: radial-gradient(circle, #ffffff 30%, #28a745 30%);
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.seat.available:hover {
+    background: radial-gradient(circle, #ffffff 30%, #1e7e34 30%);
+    border-color: #1e7e34;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Asiento seleccionado */
+.seat.selected {
+    background: radial-gradient(circle, #ffffff 30%, #007bff 30%);
+    border-color: #007bff;
+    color: #007bff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Asiento ocupado - Círculo gris con centro blanco */
+.seat.occupied {
+    background: radial-gradient(circle, #ffffff 30%, #6c757d 30%);
+    border-color: #6c757d;
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Espacio para pasillo */
+.aisle {
+    width: 20px;
+    height: 28px;
+}
+
+/* Panel derecho */
+.right-panel {
+    position: relative;
+    z-index: 3;
+    min-width: 300px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+        padding: 40px 15px;
+    }
+    
+    .seat-column {
+        margin-bottom: 30px;
+    }
+    
+    .seat {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+    
+    .single-row[data-row] {
+        margin-left: 0 !important;
+    }
+    
+    .right-panel {
+        min-width: auto;
+    }
+}
+
+/* Efectos de accesibilidad */
+.seat:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Animación para selección */
+@keyframes selectSeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
+}
+
+.seat.selected {
+    animation: selectSeat 0.3s ease;
+}
+
+/* Asegurar que los asientos sean clickeables sobre el SVG */
+.seat {
+    pointer-events: auto;
+}
